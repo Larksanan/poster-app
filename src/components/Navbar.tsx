@@ -5,7 +5,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import { auth } from '@/lib/firebase';
 import { onAuthStateChanged, User, signOut } from 'firebase/auth';
 import Image from 'next/image';
-import { motion, AnimatePresence, useMotionValue,  useTransform } from 'framer-motion';
+import { motion, AnimatePresence, useMotionValue, useTransform, useSpring } from 'framer-motion';
 import { 
   FaHeartbeat, 
   FaUserMd, 
@@ -122,8 +122,11 @@ function AnimatedLogo() {
 function AnimatedNavLink({ href, label, icon: Icon, glowColor = '#0047FF' }: NavItem) {
   const pathname = usePathname();
   const isActive = pathname === href;
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
+  const x = useMotionValue<number>(0);
+  const y = useMotionValue<number>(0);
+  const background = useTransform([x, y], (latest: number[]) =>
+    `radial-gradient(circle at ${latest[0] * 100}% ${latest[1] * 100}%, ${glowColor}, transparent 60%)`
+  );
   
   const handleMouseMove = (e: React.MouseEvent<HTMLAnchorElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
@@ -137,7 +140,7 @@ function AnimatedNavLink({ href, label, icon: Icon, glowColor = '#0047FF' }: Nav
   };
 
   return (
-    <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+    <motion.div className="relative group" whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
       <Link href={href} onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave}>
         <motion.div
           className={`relative px-4 py-2 rounded-lg transition-all duration-300 ${
@@ -158,9 +161,7 @@ function AnimatedNavLink({ href, label, icon: Icon, glowColor = '#0047FF' }: Nav
           {/* Hover glow effect */}
           <motion.div
             className="absolute inset-0 rounded-lg opacity-0 group-hover:opacity-100 pointer-events-none"
-            style={{
-              background: `radial-gradient(circle at ${x.get() * 100}% ${y.get() * 100}%, ${glowColor}40, transparent 70%)`,
-            }}
+            style={{ background }}
             animate={{ opacity: 0 }}
             whileHover={{ opacity: 1 }}
           />
@@ -449,8 +450,10 @@ function MobileMenu({ items, user, onClose, onSignOut }: {
 
 const navItems: NavItem[] = [
   { href: '/', label: 'Home', icon: FaGlobe, glowColor: '#0047FF' },
-  { href: '/contact', label: 'contact', icon: MdDashboard, requiresAuth: true, glowColor: '#00C5A8' },
-  { href: '/team', label: 'Team', icon: FaUserMd, requiresAuth: true, glowColor: '#7B2FFF' },
+  { href: '/#features', label: 'Services', icon: FaUserMd, glowColor: '#00C5A8' },
+  { href: '/team', label: 'Team', icon: FaUserCircle, glowColor: '#7B2FFF' },
+  { href: '/contact', label: 'Contact', icon: FaGlobe, glowColor: '#FF3C6E' },
+  { href: '/dashboard', label: 'Dashboard', icon: MdDashboard, requiresAuth: true, glowColor: '#0047FF' },
 ];
 
 export default function Navbar() {
@@ -524,14 +527,14 @@ export default function Navbar() {
             <AnimatedLogo />
 
             {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center gap-1">
+            <div className="hidden md:flex items-center md:gap-1 lg:gap-4">
               {filteredNavItems.map((item) => (
                 <AnimatedNavLink key={item.href} {...item} />
               ))}
             </div>
 
             {/* Right Section */}
-            <div className="hidden md:flex items-center gap-4">
+            <div className="hidden md:flex items-center md:gap-2 lg:gap-6">
              
 
               {/* Search */}
@@ -603,12 +606,16 @@ export default function Navbar() {
         </div>
 
         {/* Mobile Menu */}
-        <MobileMenu 
-          items={filteredNavItems}
-          user={user}
-          onClose={() => setIsMenuOpen(false)}
-          onSignOut={handleSignOut}
-        />
+        <AnimatePresence>
+          {isMenuOpen && (
+            <MobileMenu 
+              items={filteredNavItems}
+              user={user}
+              onClose={() => setIsMenuOpen(false)}
+              onSignOut={handleSignOut}
+            />
+          )}
+        </AnimatePresence>
       </motion.nav>
       
       {/* Spacer */}
