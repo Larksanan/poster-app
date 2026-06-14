@@ -320,7 +320,7 @@ export default function SignUpPage() {
 
       setSuccess(true);
       setTimeout(() => {
-        router.push('/dashboard');
+        router.push('/');
       }, 1500);
     } catch (e: unknown) {
       if (e instanceof FirebaseError) {

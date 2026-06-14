@@ -246,7 +246,7 @@ export default function SignInPage() {
     setLoading(true);
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      router.push('/dashboard');
+      router.push('/');
     } catch (e: unknown) {
       if (e instanceof FirebaseError) {
         switch (e.code) {
