@@ -15,7 +15,6 @@ import {
   FaTimes,
   FaGlobe,
 } from 'react-icons/fa';
-import { MdDashboard } from 'react-icons/md';
 
 
 
@@ -453,7 +452,6 @@ const navItems: NavItem[] = [
   { href: '/#features', label: 'Services', icon: FaUserMd, glowColor: '#00C5A8' },
   { href: '/team', label: 'Team', icon: FaUserCircle, glowColor: '#7B2FFF' },
   { href: '/contact', label: 'Contact', icon: FaGlobe, glowColor: '#FF3C6E' },
-  { href: '/dashboard', label: 'Dashboard', icon: MdDashboard, requiresAuth: true, glowColor: '#0047FF' },
 ];
 
 export default function Navbar() {
