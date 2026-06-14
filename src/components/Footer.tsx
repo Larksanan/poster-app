@@ -45,9 +45,9 @@ const quickLinks: NavLink[] = [
 ];
 
 const socialLinks: SocialLink[] = [
-  { icon: <FaGithub />, href: 'https://github.com', label: 'GitHub', color: '#ffffff' },
-  { icon: <FaLinkedin />, href: 'https://linkedin.com', label: 'LinkedIn', color: '#0A66C2' },
-  { icon: <FaEnvelope />, href: 'mailto:info@emedcarehub.lk', label: 'Email', color: '#00C5A8' },
+  { icon: <FaGithub />, href: 'https://github.com/jebarsanthatcroos', label: 'GitHub', color: '#ffffff' },
+  { icon: <FaLinkedin />, href: 'https://linkedin.com/in/jebarsanthatcroos', label: 'LinkedIn', color: '#0A66C2' },
+  { icon: <FaEnvelope />, href: 'mailto:jebarsanthatcroos@gmail.com', label: 'Email', color: '#00C5A8' },
 ];
 
 const techStack: TechItem[] = [
