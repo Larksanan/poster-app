@@ -23,13 +23,9 @@ import {
   SiGithub, SiPostman, SiJest, SiVercel, SiTrello, SiFirebase
 } from 'react-icons/si';
 
-// ─── DESIGN TOKENS ────────────────────────────────────────────────────────────
-// Deep space medical: #03060F base, #0047FF electric blue accent,
-// #00C5A8 teal pulse, #7B2FFF violet deep, #FF3C6E emergency red.
-// This palette is specific to a healthcare-tech product: clinical precision
-// meets the urgency of emergency medicine.
+ import VideoPoster from '@/components/videoposter';
 
-// ─── ICONS ────────────────────────────────────────────────────────────────────
+
 
 const HeartBeatIcon = () => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"
@@ -38,7 +34,7 @@ const HeartBeatIcon = () => (
   </svg>
 );
 
-// ─── PARTICLE ENGINE ──────────────────────────────────────────────────────────
+
 
 function StarField() {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -704,6 +700,7 @@ export default function HomePage() {
           </motion.p>
 
           <LaunchCountdown />
+          
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -733,6 +730,8 @@ export default function HomePage() {
           </motion.div>
         </div>
 
+      
+
         {/* Scroll indicator */}
         <motion.div
           className="absolute bottom-10 left-1/2 -translate-x-1/2"
@@ -744,6 +743,8 @@ export default function HomePage() {
           </div>
         </motion.div>
       </motion.section>
+
+         <VideoPoster/>
 
       {/* ── STATS ──────────────────────────────────────────────────────────── */}
       <section className="py-20 px-4 relative z-10">
@@ -810,6 +811,8 @@ export default function HomePage() {
           </motion.div>
         </div>
       </section>
+
+
 
       {/* ── OBJECTIVES ───────────────────────────────────────────────────── */}
       <section className="py-24 px-4 relative z-10">
