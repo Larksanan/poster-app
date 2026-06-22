@@ -715,8 +715,12 @@ export default function HomePage() {
               className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full font-bold text-sm"
               style={{ background: 'linear-gradient(135deg, #0047FF, #7B2FFF)' }}
             >
+              <Link
+              href={'https://jebarsanthatcroos.xyz'}
+              >
               Explore Features
-              <FaArrowRight className="text-xs" />
+     
+              </Link>
             </motion.button>
             <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
               <Link
